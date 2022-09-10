@@ -26,12 +26,13 @@ def bot():
 	    "X-RapidAPI-Host": "urban-dictionary7.p.rapidapi.com"
     }
     responded = False
-    if 'quote' in incoming_msg:
-        # return a quote
+    if '(' in incoming_msg:
+        # return the meaning of slang
         r = requests.request("GET", url, headers=headers, params=querystring)
         if r.status_code == 200:
             data = r.json()
-            quote = f'{data["list"][0]["definition"]}' #({data["example"]})'
+            new_line='\n'
+            quote = f'Meaning of {term}: {new_line}{data["list"][0]["definition"]} {new_line}{new_line}Here is an example {data["list"][0]["example"]}'
         else:
             quote = 'Sorry try again.'
         msg.body(quote)
